@@ -1,0 +1,1 @@
+console.log("El script s'ha carregat correctament.");
