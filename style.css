@@ -1,3 +1,24 @@
 body {
-    font-family: sans-serif;
+     font-family: sans-serif;
+ }
+
+#titol-TP {
+    color: white;
+    padding: 20px;
+    background-image: url('assets/titol TP background.png');
+    background-size: cover;
+    background-position: center;
+}
+
+.textInformatiu {
+    margin: 50px auto;
+    font-size: 18px;
+    max-width: 1000px;
+    text-align: center;
+}
+
+.missatgesHome {
+    border: 7px solid deepskyblue;
+    padding: 35px;
+    border-radius: 60px;
 }
