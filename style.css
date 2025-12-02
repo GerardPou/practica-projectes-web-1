@@ -141,3 +141,30 @@ header {
     cursor: pointer;
     font-weight: bold;
 }
+/* Estil per al contenidor dels resultats del temps */
+.resultat-temps-box {
+    border: 5px solid #703e4d; /* Vora amb el teu color preferit */
+    padding: 30px;
+    border-radius: 20px;
+    background-color: white;
+    max-width: 500px; /* Limita l'ample del requadre de resultats */
+    margin: 0 auto; /* Centrar dins de l'article */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Estil per centrar la icona i la temperatura */
+.dades-principals {
+    display: flex;
+    justify-content: center; /* Centrar horitzontalment */
+    align-items: center; /* Centrar verticalment */
+    gap: 20px;
+    margin-bottom: 15px;
+}
+
+/* Estil per destacar la temperatura */
+.temperatura-actual {
+    font-size: 3em;
+    font-weight: bold;
+    color: #703e4d; /* Temperatura destacada amb el teu color */
+    margin: 0;
+}

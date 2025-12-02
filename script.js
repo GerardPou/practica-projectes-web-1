@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (dadesTemps && dadesTemps.main && dadesTemps.weather) {
-            alert(`${dadesTemps.weather[0].description} i ${Math.round(dadesTemps.main.temp)}°C a ${CITY_NAME_SEARCH}`);
+            mostrarResultats(dadesTemps, CITY_NAME_SEARCH);
         } else {
             alert(`No s'ha pogut obtenir dades completes per a ${CITY_NAME_SEARCH}.`);
         }
@@ -102,3 +102,34 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+function mostrarResultats(data, cityName) {
+    // 1. Extracció de dades de l'objecte JSON (dadesTemps)
+    const temperatura = Math.round(data.main.temp);
+    const descripcio = data.weather[0].description;
+    const iconaId = data.weather[0].icon;
+    const nomCiutat = data.name || cityName; // Nom de ciutat de l'API o el que ha escrit l'usuari
+
+    // URL per a la icona del temps
+    const iconaUrl = `https://openweathermap.org/img/w/${iconaId}.png`;
+
+    // 2. Creació de l'HTML que s'injectarà
+    const resultatHtml = `
+        <div class="resultat-temps-box">
+            <h3>Temps actual a ${nomCiutat} (${data.sys.country})</h3>
+            
+            <div class="dades-principals">
+                <img src="${iconaUrl}" alt="${descripcio}" width="80">
+                <p class="temperatura-actual">${temperatura}°C</p>
+            </div>
+
+            <p class="descripcio-temps">Estat del cel: ${descripcio}</p>
+            <p>Temperatura mínima: ${Math.round(data.main.temp_min)}°C | Temperatura màxima: ${Math.round(data.main.temp_max)}°C</p>
+        </div>
+    `;
+
+    // 3. Injectar el HTML a l'element <article id="missatgeTemperatura">
+    const resultatElement = document.getElementById('missatgeTemperatura');
+    if (resultatElement) {
+        resultatElement.innerHTML = resultatHtml;
+    }
+}
