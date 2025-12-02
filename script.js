@@ -97,7 +97,6 @@ document.addEventListener('DOMContentLoaded', () => {
             alert(`No s'ha pogut obtenir dades completes per a ${CITY_NAME_SEARCH}.`);
         }
 
-        alert(`${dadesTemps.current.weather[0].description} i ${dadesTemps.current.temp}°C a ${CITY_NAME_SEARCH}`);
 
         form.reset();
     });
