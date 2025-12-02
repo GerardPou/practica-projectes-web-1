@@ -132,14 +132,12 @@ header {
 }
 
 .botoCerca {
-    /* Colors sol·licitats */
-    background-color: #703e4d; /* ⬅️ Color de fons: 703e4d */
-    color: white; /* ⬅️ Color de les lletres: Blanc */
-
+    background-color: #703e4d;
+    color: white;
     padding: 8px 15px;
     border: none;
     border-radius: 5px;
-    margin-left: 10px; /* Espai entre l'input i el botó */
+    margin-left: 10px;
     cursor: pointer;
     font-weight: bold;
 }
