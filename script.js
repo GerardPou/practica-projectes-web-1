@@ -5,6 +5,23 @@ let lat;
 let lon;
 let dadesTemps;
 
+function carregarUltimResultatTemps() {
+    const dataString = sessionStorage.getItem('ultimaCercaTemps');
+    const ciutatGuardada = sessionStorage.getItem('ultimaCiutatBuscada');
+
+    if (dataString) {
+        try {
+            const weatherData = JSON.parse(dataString);
+
+            mostrarResultats(weatherData, ciutatGuardada);
+        } catch (e) {
+            sessionStorage.removeItem('ultimaCercaTemps');
+            sessionStorage.removeItem('ultimaCiutatBuscada');
+            console.error("Dades de sessionStorage corruptes.");
+        }
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     const navButtons = document.querySelectorAll('[data-page]');
 
@@ -65,6 +82,9 @@ async function obtenirDadesTemps(coords) {
 
         const data = await response.json();
 
+        sessionStorage.setItem('ultimaCercaTemps', JSON.stringify(data));
+        sessionStorage.setItem('ultimaCiutatBuscada', data.name); // Guardem el nom oficial que retorna l'API
+
         return data;
 
     } catch (error) {
@@ -100,19 +120,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
         form.reset();
     });
+
+    carregarUltimResultatTemps();
 });
 
 function mostrarResultats(data, cityName) {
-    // 1. Extracció de dades de l'objecte JSON (dadesTemps)
     const temperatura = Math.round(data.main.temp);
     const descripcio = data.weather[0].description;
     const iconaId = data.weather[0].icon;
-    const nomCiutat = data.name || cityName; // Nom de ciutat de l'API o el que ha escrit l'usuari
+    const nomCiutat = data.name || cityName;
 
-    // URL per a la icona del temps
     const iconaUrl = `https://openweathermap.org/img/w/${iconaId}.png`;
 
-    // 2. Creació de l'HTML que s'injectarà
     const resultatHtml = `
         <div class="resultat-temps-box">
             <h3>Temps actual a ${nomCiutat} (${data.sys.country})</h3>
@@ -127,7 +146,6 @@ function mostrarResultats(data, cityName) {
         </div>
     `;
 
-    // 3. Injectar el HTML a l'element <article id="missatgeTemperatura">
     const resultatElement = document.getElementById('missatgeTemperatura');
     if (resultatElement) {
         resultatElement.innerHTML = resultatHtml;
