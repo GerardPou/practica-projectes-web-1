@@ -1,0 +1,24 @@
+.textInformatiu {
+    margin: 50px auto;
+    font-size: 18px;
+    max-width: 1000px;
+    text-align: center;
+}
+.missatgesHome {
+    border: 7px solid #7db41a;
+    padding: 35px;
+    border-radius: 20px;
+    background-color: white;
+    max-width: 800px;
+    margin: 50px auto;
+}
+.contenedorGif {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.gifAvioPaper {
+    width: 250px;
+    display: block;
+    margin: 0 auto;
+}

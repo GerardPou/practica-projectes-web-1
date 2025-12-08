@@ -1,0 +1,103 @@
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    font-family: sans-serif;
+    margin: 0;
+    padding-b: 0;
+    background-color: #CCCCCC;
+ }
+header {
+    background-color: #0A2A43;
+    padding-bottom:20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.header-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 10rem;
+    padding: 2rem 0;
+    max-width: 120rem;
+    margin: 0 auto;
+}
+
+.mainLogo{
+    width: 15vw ;
+    max-width: 120px;
+    height: auto;
+}
+.nav-link,.navbar-brand{
+
+    color: #D4AF37 !important;
+}
+
+.navbar-nav {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin: 0 auto;
+    gap: 1rem;
+}
+.botoMenu,.botoPolsatAboutUs,.botoPolsatAboutUs{}
+.botoMenu {
+    margin-left: 20px;
+    background-color: #1c1c23;
+    color: white;
+    padding: 15px 30px;
+    text-decoration: none;
+    border-radius: 15px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.botoPolsatHome {
+    margin-left: 20px;
+    background-color: #1c1c23;
+    color: white;
+    padding: 15px 30px;
+    text-decoration: none;
+    border-radius: 15px;
+    font-size: 20px;
+    font-weight: bold;
+    border: 5px solid #7db41a ;
+}
+
+.botoPolsatWeather {
+    margin-left: 20px;
+    background-color: #1c1c23;
+    color: white;
+    padding: 15px 30px;
+    text-decoration: none;
+    border-radius: 15px;
+    font-size: 20px;
+    font-weight: bold;
+    border: 5px solid #703e4d  ;
+}
+
+.botoPolsatAboutUs {
+    margin-left: 20px;
+    background-color: #1c1c23;
+    color: white;
+    padding: 15px 30px;
+    text-decoration: none;
+    border-radius: 15px;
+    font-size: 20px;
+    font-weight: bold;
+    border: 5px solid #1a849c;
+}
+
+.botoPulsatTrips {
+    margin-left: 20px;
+    background-color: #1c1c23;
+    color: white;
+    padding: 15px 30px;
+    text-decoration: none;
+    border-radius: 15px;
+    font-size: 20px;
+    font-weight: bold;
+    border: 5px solid #d0b520;
+}
+
+

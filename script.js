@@ -22,19 +22,6 @@ function carregarUltimResultatTemps() {
     }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    const navButtons = document.querySelectorAll('[data-page]');
-
-    navButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const targetPage = button.getAttribute('data-page');
-
-            if (targetPage) {
-                window.location.href = targetPage;
-            }
-        });
-    });
-});
 
 async function obtindreCoordenades(cityName) {
     const URL_SEARCH = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=5&appid=${API_KEY}`;
