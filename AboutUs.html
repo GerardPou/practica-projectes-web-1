@@ -4,16 +4,15 @@
     <meta charset="UTF-8">
     <title>About Us</title>
     <link rel="stylesheet" href="assets/CSS/general.css">
-    <link rel="stylesheet" href="assets/CSS/aboutUs.css">
+    <link rel="stylesheet" href="assets/CSS/AboutUs.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-
 </head>
 
 <body>
 
 <section>
     <header>
-        <div class = "header-container" >
+        <div class="header-container">
             <div class="logo-container">
                 <img src="./assets/imatges/TRAVEL.png" alt="Logo Tour Salle-World" class="mainLogo">
             </div>
@@ -39,17 +38,118 @@
                             <a class="nav-link" href="Weather.html">Weather </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="AboutUs.html">About Us</a>                        </li>
+                            <a class="nav-link" href="AboutUs.html">About Us</a>
+                        </li>
                     </ul>
                 </div>
             </div>
         </nav>
 
     </header>
+
+    <main class="about-main">
+
+        <section class="about-block">
+            <div class="about-text">
+                <h1 class="title-gold">About Tour Salle World</h1>
+                <p></p>
+                <p></p>
+            </div>
+
+            <div class="about-logo-container">
+                <img>
+            </div>
+        </section>
+
+        <section class="about-section about-mission">
+            <h2>OUR MISSION AND VISION</h2>
+            <p></p>
+            <p></p>
+        </section>
+
+        <section class="about-section about-team">
+            <h2>MEET THE TEAM</h2>
+            <p class="about-team-intro"></p>
+
+            <div class="team-grid">
+                <article class="team-card">
+                    <div class="team-photo-container">
+                        <img>
+                    </div>
+                    <div class="team-info">
+                        <h3>Daniel Barona</h3>
+                        <p class="team-role"></p>
+                        <p></p>
+                    </div>
+                </article>
+
+                <article class="team-card">
+                    <div class="team-photo-container">
+                        <img>
+                    </div>
+                    <div class="team-info">
+                        <h3>Javier Fernandez</h3>
+                        <p class="team-role"></p>
+                        <p></p>
+                    </div>
+                </article>
+
+                <article class="team-card">
+                    <div class="team-photo-container">
+                        <img>
+                    </div>
+                    <div class="team-info">
+                        <h3>Gerard Pou</h3>
+                        <p class="team-role"></p>
+                        <p></p>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section class="about-section about-contact">
+            <h2>CONTACT US</h2>
+            <p></p>
+            <p></p>
+
+            <form class="contact-form" id="contactForm">
+                <div class="form-row">
+                    <div class="form-group-custom">
+                        <label for="firstName">First name</label>
+                        <input type="text" id="firstName" name="firstName" required>
+                    </div>
+                    <div class="form-group-custom">
+                        <label for="lastName">Last name</label>
+                        <input type="text" id="lastName" name="lastName" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group-custom form-group-full">
+                        <label for="email">Email address</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group-custom form-group-full">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" rows="6" required></textarea>
+                    </div>
+                </div>
+
+                <button type="submit" class="contact-button-custom">
+                    Send message
+                </button>
+            </form>
+        </section>
+    </main>
+
+
+
+
 </section>
 
-
 <script src="script.js"></script>
-
 </body>
 </html>
