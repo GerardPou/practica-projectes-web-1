@@ -1,24 +1,48 @@
-.textInformatiu {
-    margin: 50px auto;
-    font-size: 18px;
-    max-width: 1000px;
-    text-align: center;
+
+.ContenedorPadre {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 50px;
+    gap: 30px;
 }
-.missatgesHome {
-    border: 7px solid #7db41a;
-    padding: 35px;
-    border-radius: 20px;
-    background-color: white;
-    max-width: 800px;
-    margin: 50px auto;
+
+.cardPresentacion {
+    width: 95%;
+    max-width: 1000px;
+
+
 }
 .contenedorGif {
     text-align: center;
-    margin-top: 30px;
+}
+.gifAvioPaper {
+    width: 200px;
+}
+.container-carrousel{
+    height: auto;
+    width: 70%;
+}
+.carousel-item img {
+    height: auto;
+    width: 70%;
+
+}
+.container-carrousel {
+    width: 100%;
+}
+.card-title {
+    text-align: center;
+    color: #D4AF37 !important;
+
+}
+.card-text {
+    text-align: center;
+    color: #0A2A43 !important;
 }
 
-.gifAvioPaper {
-    width: 250px;
-    display: block;
-    margin: 0 auto;
-}
+
+
+
