@@ -1,20 +1,79 @@
-
-.ContenedorPadre {
+#container-Contenido {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     width: 100%;
     margin-top: 50px;
-    gap: 30px;
-}
-
-.cardPresentacion {
-    width: 95%;
-    max-width: 1000px;
-
 
 }
+#Container-Logos-Colaboradores{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 90%;
+    flex-wrap: wrap !important;
+}
+.logo-item {
+    flex: 1;
+    max-width: 150px;
+    padding: 10px;
+    text-align: center;
+}
+.logo-item img {
+    width: 100%;
+    height: auto;
+}
+
+.Container-Colaboradores {
+    width: 100%;
+    padding: 50px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+.titulo-Contenido,.titulo-Contenido2{
+    color: gold;
+}
+.container-Contenido1{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    background: #0A2A43;
+}
+.Container-Cards-Informacion{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    background: #0A2A43;
+    gap: 4px;
+}
+.FotoContenido1{
+    display: flex;
+    align-items: flex-end;
+    width: 50%;
+}
+
+.FotoContenido1 img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+.TextoContenido1{
+    width: 50%;
+    padding: 40px;
+    color: white !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
 .contenedorGif {
     text-align: center;
 }
@@ -32,16 +91,44 @@
 }
 .container-carrousel {
     width: 100%;
-}
-.card-title {
-    text-align: center;
-    color: #D4AF37 !important;
 
 }
-.card-text {
-    text-align: center;
-    color: #0A2A43 !important;
+.carousel-caption h5 {
+    color: gold !important;
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px #000;
+    margin-bottom: 15px;
 }
+.carousel-caption p {
+    color: #FFFFFF !important;
+    font-size: 1.5rem;
+    font-weight: 500;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.9);
+    margin-bottom: 25px;
+}
+.Container-Cards-Informacion {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+    padding: 60px 20px;
+    background: #ffffff;
+}
+.card{
+    border-radius: 20px !important;
+    width: 350px !important;
+    max-width: 350px;
+    min-width: 350px;
+    flex-grow: 1;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    background-color: #02337c;
+}
+.Container-Cards-Informacion .card-body {
+    padding: 25px;
+    text-align: center;
+}
+
 
 
 
