@@ -1,0 +1,45 @@
+.Container-Padre-Trips{
+    display: grid;
+    grid-template-columns: 20% 1fr 25%;
+    gap:0;
+
+    background-color: white;
+    height: calc(100vh - 70px);
+}
+.Container-Columna1,.Container-Columna2,.Container-Columna3 {
+    padding: 2%;
+    border-radius: 0;
+
+    height: 100%;
+}
+.Container-Columna1,.Container-Columna3 {
+    background-color: #f8f9fa;
+    color: white;
+
+}
+.Container-Columna2 {
+    background-color: white;
+    color: #0A2A43
+}
+.Container-Columna1 h5 ,.Container-Columna2 h5 ,.Container-Columna3 h5  {
+    color: #0A2A43;
+    font-weight: bold;
+    border-bottom: 1.5px solid gold !important;
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+}
+.tarjeta-viaje{
+    background-color: white;
+    border-left: 5px solid gold !important;
+    border-radius: 8px;
+    width: 100%;
+}
+.Button_CrearViaje{
+    text-align: center;
+}
+#contenedor-viajes{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
