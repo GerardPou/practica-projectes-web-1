@@ -43,7 +43,7 @@
     height: auto;
 }
 .about-section {
-    background-color: ivory;
+    background: linear-gradient(90deg, #0A2A43 0%, #073a63 50%, #020f1f 100%);
     border-radius: 20px;
     padding: 28px 26px 30px 26px;
     margin-bottom: 28px;
@@ -53,7 +53,7 @@
 .about-section h2 {
     margin-top: 0;
     margin-bottom: 12px;
-    color: #0A2A43;
+    color: #e8bd00;
     font-size: 1.7rem;
     text-align: left;
 }
@@ -76,7 +76,7 @@
     border-radius: 18px;
     padding: 16px 16px 18px 16px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    border-top: 4px solid gold;
+    border-top: 1px solid #e8bd00;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -99,7 +99,7 @@
     margin-top: 0;
     margin-bottom: 4px;
     font-size: 1.15rem;
-    color: #0A2A43;
+    color: #e8bd00;
     text-align: center;
 }
 .team-role {
@@ -116,10 +116,12 @@
 }
 
 .contact-form {
+    color: #ffffff !important;
     margin-top: 18px;
 }
 
 .form-row {
+    color: #ffffff !important;
     display: flex;
     flex-wrap: wrap;
     gap: 18px;
@@ -139,7 +141,7 @@
 .form-group-custom label {
     font-weight: 600;
     margin-bottom: 6px;
-    color: #0A2A43;
+    color: #ffffff !important;
     text-align: left;
 }
 

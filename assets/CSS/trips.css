@@ -33,13 +33,37 @@
     border-left: 5px solid gold !important;
     border-radius: 8px;
     width: 100%;
+    padding: 10px;
 }
 .Button_CrearViaje{
     text-align: center;
 }
-#contenedor-viajes{
+#contenedor-viajes {
     display: flex;
     flex-direction: column;
     gap: 15px;
+    padding: 10px;
+}
+#contenedor-viajes .card {
+    width: 100%;
+    border-radius: 15px;
+    border:none;
+    border-left: 5px solid #FFC107;
+    border-right: 5px solid #FFC107;
+    margin-bottom: 15px;
+    background-color: white;
+}
+#contenedor-viajes .card-body {
+    padding: 1rem;
+}
+#contenedor-viajes .card-title {
+    color: #0A2A43;
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+#contenedor-viajes .text-muted {
+    font-size: 0.8rem;
+    color : #6c757d;
 }
 

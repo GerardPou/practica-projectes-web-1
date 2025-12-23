@@ -70,26 +70,28 @@
                         <button type="button" class="btn-close" id="btn-x-cerrar"></button>
                     </div>
                     <div class="modal-body">
-                        <div class="mb-3">
-                            <label for="LabelPais" class="form-label">Pais</label>
-                            <input type="text" class="form-control" id="LabelPais" placeholder="Introduce el pais(Ej España):">
-                        </div>
-                        <div class="mb-3">
-                            <label for="LabelCiudad" class="form-label">Ciudad</label>
-                            <input type="text" class="form-control" id="LabelCiudad" placeholder="Introduce la ciudad (Ej Barcelona):">
-                        </div>
-                        <div class="mb-3">
-                            <label for="LabelFechaIda" class="form-label">Fecha de ida </label>
-                            <input type="date" class="form-control" id="LabelFechaIda">
-                        </div>
-                        <div class="mb-3">
-                            <label for="LabelFechaVuelta" class="form-label">Fecha de vuelta </label>
-                            <input type="date" class="form-control" id="LabelFechaVuelta">
-                        </div>
+                        <form id="formCrear">
+                            <div class="mb-3">
+                                <label for="LabelPais" class="form-label">Pais</label>
+                                <input type="text" class="form-control" id="LabelPais" placeholder="Introduce el pais(Ej España):">
+                            </div>
+                            <div class="mb-3">
+                                <label for="LabelCiudad" class="form-label">Ciudad</label>
+                                <input type="text" class="form-control" id="LabelCiudad" placeholder="Introduce la ciudad (Ej Barcelona):">
+                            </div>
+                            <div class="mb-3">
+                                <label for="LabelFechaIda" class="form-label">Fecha de ida </label>
+                                <input type="date" class="form-control" id="LabelFechaIda">
+                            </div>
+                            <div class="mb-3">
+                                <label for="LabelFechaVuelta" class="form-label">Fecha de vuelta </label>
+                                <input type="date" class="form-control" id="LabelFechaVuelta">
+                            </div>
+                        </form >
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" id="btn-cancelar">Cancelar</button>
-                        <button type="button" class="btn btn-primary" onclick="guardarViaje()">Guardar</button>
+                        <button type="button" class="btn btn-primary" id="btn-guardar">Guardar</button>
                     </div>
                 </div>
             </div>
