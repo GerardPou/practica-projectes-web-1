@@ -35,7 +35,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const ciudad = Inputciudad.value;
         const fechaIda = InputfechaIda.value;
         const fechaFin = InputfechaFin.value;
-
         if (pais === "" || ciudad === ""){
             alert("Falta rellenar el pais o la ciudad");
             return;
@@ -45,11 +44,15 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
+        const idUnico=500
+        const urlFoto = `https://loremflickr.com/400/400/${ciudad},city?lock=${idUnico}`;
+
         const nuevoViaje= {
             fechaInicio: fechaIda,
             fechaFin: fechaFin,
             ciudad: ciudad,
             pais: pais,
+            urlFoto: urlFoto,
         }
         misViajes.push(nuevoViaje);
         localStorage.setItem('misViajes', JSON.stringify(misViajes));
@@ -57,24 +60,56 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('formCrear').reset();
         modalBootstrap.hide();
     }
-    function printarViajes(){
-        const contenedorViajes=document.getElementById('contenedor-viajes');
-        let num_viajes=misViajes.length;
+    function printarViajes() {
+        const contenedorViajes = document.getElementById('contenedor-viajes');
+        let num_viajes = misViajes.length;
         contenedorViajes.innerHTML = "";
-        for (i=0;i<num_viajes;i++){
-            let viaje=misViajes[i];
-            contenedorViajes.innerHTML +=`
-                <div class="card" >
-                <div class="card-body">
-                    <h5 class="card-title">${viaje.ciudad}, ${viaje.pais}</h5>
-                 <p class="card-text text-muted">
-                         <strong>Ida:</strong> ${viaje.fechaInicio} <br>
-                         <strong>Vuelta:</strong> ${viaje.fechaFin}
-                    </p>
+        for (let i = 0; i < num_viajes; i++) {
+            let viaje = misViajes[i];
+            let inicio = viaje.fechaInicio.split('-').reverse().join('/');
+            let fin = viaje.fechaFin.split('-').reverse().join('/');
+            const nuevaTarjeta=document.createElement('div');
+            nuevaTarjeta.className= "card mb-3"
+            nuevaTarjeta.addEventListener('click', () => mostrarDetalle(i));
+            nuevaTarjeta.innerHTML += `
+              <div class="row g-0">
+                <div class="col-4">
+                  <img src="${viaje.urlFoto}" class="img-fluid rounded-start" alt="${viaje.ciudad}" style="height: 100%; object-fit: cover;">
                 </div>
-            </div>`;
-
-
+                <div class="col-8">
+                  <div class="card-body">
+                    <h5 class="card-title">${viaje.ciudad}</h5>
+                    <p class="card-text">${viaje.pais}</p>
+                    <p class="card-text"><small class="text-body-secondary">${inicio} - ${fin}</small></p>
+                  </div>
+                </div>
+              </div>`;
+            contenedorViajes.appendChild(nuevaTarjeta);
         }
+    }
+    function mostrarDetalle(i){
+        let viaje = misViajes[i];
+        let fin = viaje.fechaFin.split('-').reverse().join('/');
+        let inicio = viaje.fechaInicio.split('-').reverse().join('/');
+
+        const bienvenida=document.getElementById('mensaje-bienvenida');
+        const contenedorDetalle=document.getElementById('contenedor-detalles');
+
+        const img = document.getElementById('detalle-img');
+        const titulo = document.getElementById('detalle-titulo');
+        const pais = document.getElementById('detalle-pais');
+        const fechas = document.getElementById('detalle-fechas');
+
+        bienvenida.style.display="none";
+        contenedorDetalle.style.display="flex";
+
+        titulo.innerText= viaje.ciudad;
+        pais.innerText= viaje.pais;
+        fechas.innerText = `Del ${inicio} al ${fin}`;
+
+        img.src=viaje.urlFoto;
+
+
+
     }
 });
