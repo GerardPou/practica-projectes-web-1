@@ -1,3 +1,104 @@
+
+.about-block {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    padding: 60px 5%;
+}
+
+.about-text {
+    flex: 1;
+}
+
+.about-logo-container {
+    flex: 1;
+    text-align: center;
+}
+
+.about-logo {
+    max-width: 300px;
+}
+
+
+.mission-container {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    padding: 60px 5%;
+}
+
+.mission-text,
+.mission-image {
+    flex: 1;
+}
+
+
+
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    padding: 40px 5%;
+}
+
+.team-card {
+    text-align: center;
+}
+
+.team-photo {
+    width: 100%;
+    max-width: 200px;
+    border-radius: 50%;
+}
+
+
+.contact-form {
+    max-width: 800px;
+    margin: auto;
+}
+
+.form-row {
+    display: flex;
+    gap: 20px;
+}
+
+.form-group-custom {
+    flex: 1;
+}
+
+.form-group-full {
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+
+    .about-block {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .mission-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .team-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-row {
+        flex-direction: column;
+    }
+
+    .about-logo {
+        max-width: 200px;
+    }
+}
+
+
+
+
 .about-main {
     max-width: 1150px;
     margin: 50px auto 70px auto;
