@@ -172,6 +172,83 @@
     background-color: #fffcf5;
     color:#aaa
 }
+.container-gemini{
+    background-color: white;
+    border-radius: 10px;
+    border: 1.5px solid #ddd;
+    display: flex;
+    flex-direction: column;
+    height: 450px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+.header-gemini{
+    background-color: #0A2A43;
+    color: white !important;
+    padding: 12px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 0.95rem;
+}
+#contenedor-chat-gemini{
+    display: flex;
+    flex:1 ;
+    flex-direction: column;
+    background-color: #f4f4f9;
+    gap: 15px;
+    overflow-y: auto;
+    padding: 12px;
+}
+
+.mensaje-respuesta-gemini{
+    padding: 12px 14px;
+    align-self: flex-start;
+    background-color: white !important;
+    color:#0A2A43;
+    border: 1px solid #e0e0e0;
+    border-bottom-left-radius: 15px;
+    max-width: 80%;
+    margin-left: 10px;
+
+}
+.mensaje-respuesta-usuario{
+    padding: 12px 14px ;
+    align-self: flex-end;
+    background-color: gold !important;
+    color: white;
+    border-bottom-left-radius: 15px;
+    max-width: 80%;
+    margin-right: 10px;
+}
+.input-pregunta-box{
+    background-color: white;
+    padding: 10px;
+    border-top: 1.5px solid #ddd;
+    display:flex;
+    gap: 5px;
+    align-items: center;
+}
+.input-pregunta-box input{
+    flex:0.75;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    padding: 8px 12px;
+    outline: none;
+    font-size: 0.85rem;
+}
+.buttonGemini{
+    flex:0.75;
+    background: #0A2A43;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 
 
 
