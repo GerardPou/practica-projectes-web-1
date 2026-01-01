@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', () => {
     const botonAbrir = document.querySelector('#Button_CrearViaje');
     const botonCerrar = document.querySelector('#btn-cancelar');
@@ -94,6 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const bienvenida=document.getElementById('mensaje-bienvenida');
         const contenedorDetalle=document.getElementById('contenedor-detalles');
+        const cajaChatPrincipal = document.querySelector('.container-gemini');
 
         const img = document.getElementById('detalle-img');
         const titulo = document.getElementById('detalle-titulo');
@@ -102,14 +104,85 @@ document.addEventListener('DOMContentLoaded', () => {
 
         bienvenida.style.display="none";
         contenedorDetalle.style.display="flex";
+        cajaChatPrincipal.style.display="flex";
 
+        enviarMensaje("Dime cosas que hacer en la ciudad de " + viaje.ciudad);
         titulo.innerText= viaje.ciudad;
         pais.innerText= viaje.pais;
         fechas.innerText = `Del ${inicio} al ${fin}`;
 
         img.src=viaje.urlFoto;
-
-
-
     }
+
+    const API_GeminiKey = "AIzaSyDtjLLhYJUocSKooLEVWbSlkI8rwZKvtjo";
+
+    const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${API_GeminiKey}`;
+    const inputUser = document.querySelector('.input-pregunta');
+    const botonGemini = document.querySelector('.buttonGemini');
+
+    function mostrarMensaje(mensaje,rol){
+        const chatContainer = document.getElementById('contenedor-chat-gemini');
+
+
+        const messageDiv = document.createElement('div');
+        if (rol === "usuario"){
+            messageDiv.classList.add('mensaje-respuesta-usuario');
+        }else{
+            messageDiv.classList.add('mensaje-respuesta-gemini');
+        }
+        const aux= document.createElement('div');
+        aux.textContent=mensaje;
+        messageDiv.appendChild(aux);
+        chatContainer.appendChild(messageDiv);
+    }
+
+    function enviarMensaje(inputPregunta){
+
+        if (!inputPregunta){
+            return;
+        }
+        mostrarMensaje(inputPregunta,"usuario");
+        inputUser.value = '';
+
+        fetch(API_URL,{
+            method: 'POST',
+            headers: {
+                'Content-Type': "application/json",
+            },
+            body: JSON.stringify({
+                contents: [{
+                    parts: [{ text: inputPregunta }]
+                }]
+            })
+
+
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Errores con la API")
+            }
+            return response.json();
+        })
+            .then(data => {
+                if (data.candidates && data.candidates.length > 0) {
+                    const botText = data.candidates[0].content.parts[0].text;
+                    mostrarMensaje(botText, 'gemini');
+                } else {
+                    mostrarMensaje("No he entendido eso, ¿puedes repetir?", 'gemini');
+                }
+
+            })
+            .catch(error =>{
+                console.error(error);
+                mostrarMensaje("Lo siento ha ocurrido un error de conexion,vuelva a introducir el mensaje ", 'gemini');
+            })
+    }
+    botonGemini.addEventListener('click', () => {
+        let inputPregunta = inputUser.value.trim();
+        enviarMensaje(inputPregunta)
+    });
+
+
+
+
 });
