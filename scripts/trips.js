@@ -6,12 +6,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const modalActivitatEl = document.getElementById('modalNovaActivitat');
     const modalActivitat = new bootstrap.Modal(modalActivitatEl);
+    const btnObrirModalActivitat = document.getElementById('btn-obrir-modal-activitat');
     const btnGuardarActivitat = document.getElementById('btn-guardar-activitat');
+    const titolModalActivitat = document.getElementById('titolModalActivitat');
 
     const API_KEY = 'e37da9bf540393b942e08990dc919de9';
 
     let misViajes = [];
     let indiceViajeSeleccionado = null;
+    let indiceActivitatEdicio = -1;
 
     const elementoModal = document.getElementById('miModalBootstrap');
     const miModal = new bootstrap.Modal(elementoModal);
@@ -240,6 +243,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    btnObrirModalActivitat.addEventListener('click', () => {
+        indiceActivitatEdicio = -1;
+        document.getElementById('formNovaActivitat').reset();
+        titolModalActivitat.textContent = "Añadir Nueva Actividad";
+        modalActivitat.show();
+    });
+
     btnGuardarActivitat.addEventListener('click', () => {
         if (indiceViajeSeleccionado === null) return;
 
@@ -260,12 +270,30 @@ document.addEventListener('DOMContentLoaded', () => {
             preu: inputPreu
         };
 
-        misViajes[indiceViajeSeleccionado].actividades.push(novaActivitat);
+        if (indiceActivitatEdicio === -1) {
+            misViajes[indiceViajeSeleccionado].actividades.push(novaActivitat);
+        } else {
+            misViajes[indiceViajeSeleccionado].actividades[indiceActivitatEdicio] = novaActivitat;
+        }
+
         localStorage.setItem('misViajes', JSON.stringify(misViajes));
         printarTaulaActivitats();
         document.getElementById('formNovaActivitat').reset();
         modalActivitat.hide();
     });
+
+    function prepararEdicio(index) {
+        indiceActivitatEdicio = index;
+        const activitat = misViajes[indiceViajeSeleccionado].actividades[index];
+
+        document.getElementById('inputDataActivitat').value = activitat.data;
+        document.getElementById('inputHoraActivitat').value = activitat.hora;
+        document.getElementById('inputNomActivitat').value = activitat.nom;
+        document.getElementById('inputPreuActivitat').value = activitat.preu;
+
+        titolModalActivitat.textContent = "Editar Actividad";
+        modalActivitat.show();
+    }
 
     function printarTaulaActivitats() {
         const tbody = document.getElementById('body-taula-activitats');
@@ -287,14 +315,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 const dataFormatada = act.data.split('-').reverse().join('/');
 
                 const fila = document.createElement('tr');
-                fila.innerHTML = `
-                    <td>${dataFormatada}</td>
-                    <td>${act.hora}</td>
-                    <td>${act.nom}</td>
-                    <td>${act.preu ? act.preu + '€' : '-'}</td>
-                `;
 
                 const tdAccions = document.createElement('td');
+                tdAccions.style.display = "flex";
+                tdAccions.style.gap = "5px";
+
+                const btnEditar = document.createElement('button');
+                btnEditar.className = "btn btn-warning btn-sm";
+                btnEditar.textContent = "Editar";
+                btnEditar.addEventListener('click', () => prepararEdicio(index));
+
                 const btnEliminar = document.createElement('button');
                 btnEliminar.className = "btn btn-danger btn-sm";
                 btnEliminar.textContent = "Eliminar";
@@ -302,8 +332,17 @@ document.addEventListener('DOMContentLoaded', () => {
                     eliminarActivitat(index);
                 });
 
+                tdAccions.appendChild(btnEditar);
                 tdAccions.appendChild(btnEliminar);
+
+                fila.innerHTML = `
+                    <td>${dataFormatada}</td>
+                    <td>${act.hora}</td>
+                    <td>${act.nom}</td>
+                    <td>${act.preu ? act.preu + '€' : '-'}</td>
+                `;
                 fila.appendChild(tdAccions);
+
                 tbody.appendChild(fila);
             });
         }

@@ -35,12 +35,10 @@
     </section>
 
     <section class="Container-Padre-Trips">
-
         <div class="Container-Columna1">
             <h5>Mis Viajes</h5>
             <button type="button" id="Button_CrearViaje" class="btn btn-outline-primary">Nuevo viaje</button>
-            <div id="contenedor-viajes">
-            </div>
+            <div id="contenedor-viajes"></div>
         </div>
 
         <div class="Container-Columna2">
@@ -84,7 +82,7 @@
                         </div>
 
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
-                            <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#modalNovaActivitat">
+                            <button class="btn btn-primary" type="button" id="btn-obrir-modal-activitat">
                                 + Añadir Actividad
                             </button>
                         </div>
@@ -95,7 +93,6 @@
 
         <div class="Container-Columna3">
             <h5>Herramientas</h5>
-
             <div class="container-gemini" style="display: none">
                 <div class="header-gemini"><p>Asistente IA</p></div>
                 <div id="contenedor-chat-gemini"></div>
@@ -150,7 +147,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header bg-primary text-white">
-                <h5 class="modal-title">Añadir Nueva Actividad</h5>
+                <h5 class="modal-title" id="titolModalActivitat">Añadir Nueva Actividad</h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -175,7 +172,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary" id="btn-guardar-activitat">Añadir</button>
+                <button type="button" class="btn btn-primary" id="btn-guardar-activitat">Guardar</button>
             </div>
         </div>
     </div>
