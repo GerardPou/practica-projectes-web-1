@@ -1,9 +1,33 @@
 const API_KEY = 'e37da9bf540393b942e08990dc919de9';
 let CITY_NAME_SEARCH = 'Barcelona';
-const URL_SEARCH = `http://api.openweathermap.org/geo/1.0/direct?q=${CITY_NAME_SEARCH}&limit=5&appid=${API_KEY}`;
 let lat;
 let lon;
 let dadesTemps;
+
+function ferPeticioAjax(url) {
+    return new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+
+        xhr.open('GET', url, true);
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    try {
+                        const dades = JSON.parse(xhr.responseText);
+                        resolve(dades);
+                    } catch (e) {
+                        reject("Error processant el JSON de la resposta");
+                    }
+                } else {
+                    reject(`Error HTTP: ${xhr.status}`);
+                }
+            }
+        };
+
+        xhr.send();
+    });
+}
 
 function carregarUltimResultatTemps() {
     const dataString = sessionStorage.getItem('ultimaCercaTemps');
@@ -12,7 +36,6 @@ function carregarUltimResultatTemps() {
     if (dataString) {
         try {
             const weatherData = JSON.parse(dataString);
-
             mostrarResultats(weatherData, ciutatGuardada);
         } catch (e) {
             sessionStorage.removeItem('ultimaCercaTemps');
@@ -22,18 +45,11 @@ function carregarUltimResultatTemps() {
     }
 }
 
-
 async function obtindreCoordenades(cityName) {
     const URL_SEARCH = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=5&appid=${API_KEY}`;
 
     try {
-        const response = await fetch(URL_SEARCH);
-
-        if (!response.ok) {
-            throw new Error(`Error HTTP: ${response.status}`);
-        }
-
-        const data = await response.json();
+        const data = await ferPeticioAjax(URL_SEARCH);
 
         if (data && data.length > 0) {
             lat = data[0].lat;
@@ -47,7 +63,7 @@ async function obtindreCoordenades(cityName) {
         }
 
     } catch (error) {
-        console.error("Error consultant Geocoding API:", error);
+        console.error("Error consultant Geocoding API via AJAX:", error);
         alert("Hi ha hagut un problema en buscar la ciutat. Intenta-ho de nou.");
         return null;
     }
@@ -61,21 +77,15 @@ async function obtenirDadesTemps(coords) {
     console.log(`Procedint a buscar el temps a: ${WEATHER_URL}`);
 
     try {
-        const response = await fetch(WEATHER_URL);
-
-        if (!response.ok) {
-            throw new Error(`Error HTTP en API Temps: ${response.status}`);
-        }
-
-        const data = await response.json();
+        const data = await ferPeticioAjax(WEATHER_URL);
 
         sessionStorage.setItem('ultimaCercaTemps', JSON.stringify(data));
-        sessionStorage.setItem('ultimaCiutatBuscada', data.name); // Guardem el nom oficial que retorna l'API
+        sessionStorage.setItem('ultimaCiutatBuscada', data.name);
 
         return data;
 
     } catch (error) {
-        console.error("Error obtenint dades de temps:", error);
+        console.error("Error obtenint dades de temps via AJAX:", error);
         return null;
     }
 }
@@ -101,9 +111,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (dadesTemps && dadesTemps.main && dadesTemps.weather) {
             mostrarResultats(dadesTemps, CITY_NAME_SEARCH);
         } else {
-            alert(`No s'ha pogut obtenir dades completes per a ${CITY_NAME_SEARCH}.`);
+            console.log(`No s'ha pogut obtenir dades completes.`);
         }
-
 
         form.reset();
     });

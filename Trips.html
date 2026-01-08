@@ -6,9 +6,7 @@
     <link rel="stylesheet" href="assets/CSS/general.css">
     <link rel="stylesheet" href="assets/CSS/trips.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-
 </head>
-
 <body>
 
 <section>
@@ -35,22 +33,23 @@
                                 <a class="nav-link" href="Weather.html">Weather</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="AboutUs.html">About Us</a>                        </li>
+                                <a class="nav-link" href="AboutUs.html">About Us</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
             </nav>
-
         </header>
     </section>
+
     <section class="Container-Padre-Trips">
         <div class="Container-Columna1">
             <h5>Mis Viajes</h5>
-            <button type="button" id ="Button_CrearViaje" class="btn btn-outline-primary">Nuevo viaje </button>
+            <button type="button" id="Button_CrearViaje" class="btn btn-outline-primary">Nuevo viaje</button>
             <div id="contenedor-viajes">
             </div>
-
         </div>
+
         <div class="Container-Columna2">
             <h5>Detalles del Viaje</h5>
             <div class="Container-Columna2">
@@ -58,82 +57,142 @@
                     <h3>Selecciona un viaje</h3>
                     <p>Haz clic en el menú de la izquierda para ver los detalles.</p>
                 </div>
+
                 <div id="contenedor-detalles" style="display: none;">
                     <img id="detalle-img" src="" class="img-portada" alt="Portada">
                     <h1 id="detalle-titulo" class="detalle-titulo">Ciudad</h1>
                     <div id="detalle-pais" class="detalle-pais">País</div>
+
                     <div class="fechas-contenedor">
-                         <p id="detalle-fechas">Fechas</p>
+                        <p id="detalle-fechas">Fechas</p>
                     </div>
+
                     <div class="descripcion-futura">
+                    </div>
+
+                    <div class="seccio-activitats mt-4">
+                        <h5 class="mb-3">Actividades Seleccionadas</h5>
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover table-bordered" id="taula-activitats">
+                                <thead class="table-primary">
+                                <tr>
+                                    <th scope="col">Data</th>
+                                    <th scope="col">Hora</th>
+                                    <th scope="col">Actividad</th>
+                                    <th scope="col">Precio</th>
+                                    <th scope="col">Acciones</th>
+                                </tr>
+                                </thead>
+                                <tbody id="body-taula-activitats">
+                                <tr>
+                                    <td colspan="5" class="text-center text-muted">No hay actividades seleccionadas.</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
+                            <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#modalNovaActivitat">
+                                + Añadir Actividad
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
         <div class="Container-Columna3">
             <h5>Herramientas</h5>
             <div class="container-gemini" style="display: none">
-                    <div class="header-gemini">
-                        <p>Asistente IA</p>
-                    </div>
-                    <div id="contenedor-chat-gemini">
-
-                    </div>
-                    <div class="input-pregunta-box">
-                        <input type="text" class="input-pregunta" placeholder="Ingresa tu pregunta">
-                        <button type="button" class="buttonGemini">Enviar</button>
-                    </div>
+                <div class="header-gemini">
+                    <p>Asistente IA</p>
                 </div>
-                <div class="container-weather">
-
+                <div id="contenedor-chat-gemini">
                 </div>
-
+                <div class="input-pregunta-box">
+                    <input type="text" class="input-pregunta" placeholder="Ingresa tu pregunta">
+                    <button type="button" class="buttonGemini">Enviar</button>
+                </div>
+            </div>
+            <div class="container-weather">
+            </div>
         </div>
-
     </section>
 </section>
-    <div class="modal fade" id="miModalBootstrap" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Nuevo Viaje</h5>
-                        <button type="button" class="btn-close" id="btn-x-cerrar"></button>
+
+<div class="modal fade" id="miModalBootstrap" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Nuevo Viaje</h5>
+                <button type="button" class="btn-close" id="btn-x-cerrar"></button>
+            </div>
+            <div class="modal-body">
+                <form id="formCrear">
+                    <div class="mb-3">
+                        <label for="LabelPais" class="form-label">Pais</label>
+                        <input type="text" class="form-control" id="LabelPais" placeholder="Introduce el pais (Ej: España):">
                     </div>
-                    <div class="modal-body">
-                        <form id="formCrear">
-                            <div class="mb-3">
-                                <label for="LabelPais" class="form-label">Pais</label>
-                                <input type="text" class="form-control" id="LabelPais" placeholder="Introduce el pais(Ej España):">
-                            </div>
-                            <div class="mb-3">
-                                <label for="LabelCiudad" class="form-label">Ciudad</label>
-                                <input type="text" class="form-control" id="LabelCiudad" placeholder="Introduce la ciudad (Ej Barcelona):">
-                            </div>
-                            <div class="mb-3">
-                                <label for="LabelFechaIda" class="form-label">Fecha de ida </label>
-                                <input type="date" class="form-control" id="LabelFechaIda">
-                            </div>
-                            <div class="mb-3">
-                                <label for="LabelFechaVuelta" class="form-label">Fecha de vuelta </label>
-                                <input type="date" class="form-control" id="LabelFechaVuelta">
-                            </div>
-                        </form >
+                    <div class="mb-3">
+                        <label for="LabelCiudad" class="form-label">Ciudad</label>
+                        <input type="text" class="form-control" id="LabelCiudad" placeholder="Introduce la ciudad (Ej: Barcelona):">
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" id="btn-cancelar">Cancelar</button>
-                        <button type="button" class="btn btn-primary" id="btn-guardar">Guardar</button>
+                    <div class="mb-3">
+                        <label for="LabelFechaIda" class="form-label">Fecha de ida </label>
+                        <input type="date" class="form-control" id="LabelFechaIda">
                     </div>
-                </div>
+                    <div class="mb-3">
+                        <label for="LabelFechaVuelta" class="form-label">Fecha de vuelta </label>
+                        <input type="date" class="form-control" id="LabelFechaVuelta">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="btn-cancelar">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="btn-guardar">Guardar</button>
             </div>
         </div>
     </div>
+</div>
 
+<div class="modal fade" id="modalNovaActivitat" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title">Añadir Nueva Actividad</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="formNovaActivitat">
+                    <div class="mb-3">
+                        <label for="inputDataActivitat" class="form-label">Data</label>
+                        <input type="date" class="form-control" id="inputDataActivitat" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="inputHoraActivitat" class="form-label">Hora</label>
+                        <input type="time" class="form-control" id="inputHoraActivitat" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="inputNomActivitat" class="form-label">Actividad</label>
+                        <input type="text" class="form-control" id="inputNomActivitat" placeholder="Ex: Visita al museu..." required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="inputPreuActivitat" class="form-label">Precio (€)</label>
+                        <input type="number" class="form-control" id="inputPreuActivitat" placeholder="0" min="0" step="0.01">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" id="btn-guardar-activitat">Añadir</button>
+            </div>
+        </div>
+    </div>
+</div>
 
-
-
-    <script src="scripts/trips.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js" integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y" crossorigin="anonymous"></script>
+<script src="scripts/trips.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js" integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y" crossorigin="anonymous"></script>
 
 </body>
 </html>
