@@ -1,280 +1,326 @@
-.Container-Padre-Trips{
+.Container-Padre-Trips {
     display: grid;
     grid-template-columns: 20% 1fr 25%;
-    gap:0;
+    gap: 0;
     background-color: white;
     height: calc(100vh - 70px);
 }
-.Container-Columna1,.Container-Columna2,.Container-Columna3 {
+
+.Container-Columna1, .Container-Columna2, .Container-Columna3 {
     padding: 2%;
     border-radius: 0;
-
     height: 100%;
 }
-.Container-Columna1,.Container-Columna3 {
-    background-color: #f8f9fa;
-    color: white;
 
+.Container-Columna1, .Container-Columna3 {
+    background-color: #f8f9fa;
+    color: #333;
 }
+
 .Container-Columna2 {
     background-color: white;
     height: 100%;
     color: #0A2A43;
-    overflow-y:auto;
+    overflow-y: auto;
     padding: 1%;
     display: flex;
     flex-direction: column;
-    gap:20px;
+    gap: 20px;
 }
 
-.Container-Columna1 h5 ,.Container-Columna2 h5 ,.Container-Columna3 h5  {
+.Container-Columna1 h5, .Container-Columna2 h5, .Container-Columna3 h5 {
     color: #0A2A43;
     font-weight: bold;
     border-bottom: 1.5px solid gold !important;
     padding-bottom: 5px;
-    margin-bottom: 5px;
+    margin-bottom: 15px;
 }
-.tarjeta-viaje{
-    background-color: white;
-    border-left: 5px solid gold !important;
-    border-radius: 8px;
-    width: 100%;
-    padding: 10px;
-    box-shadow: 0 -5px 15px rgba(0,0,0,0.05);
 
-}
-.Button_CrearViaje{
+.Button_CrearViaje {
     text-align: center;
 }
+
 #contenedor-viajes {
     display: flex;
     flex-direction: column;
     gap: 15px;
-    padding: 10px;
+    padding: 10px 0;
 }
+
 #contenedor-viajes .card {
     width: 100%;
     min-height: 110px;
     height: auto;
     border-radius: 15px;
-    border:none;
+    border: none;
     border-left: 5px solid #FFC107;
     border-right: 5px solid #FFC107;
-    box-shadow: 0 -5px 15px rgba(0,0,0,0.05);
-    margin-bottom: 15px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    margin-bottom: 0;
     overflow: hidden;
     background-color: white;
+    cursor: pointer;
+    transition: transform 0.2s;
 }
+
+#contenedor-viajes .card:hover {
+    transform: translateY(-2px);
+}
+
 #contenedor-viajes .card-body {
-    padding: 0.5rem;
-    height: 100%;
+    padding: 0.8rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
+
 #contenedor-viajes .card-title {
     color: #0A2A43;
     font-weight: bold;
     font-size: 1.1rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.3rem;
 }
+
 #contenedor-viajes .text-muted {
     font-size: 0.8rem;
-    color : #6c757d;
+    color: #6c757d;
 }
-#contenedor-viajes .img-miniatura{
+
+.mensaje-bienvenida {
+    color: #FFC107;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 50px;
+}
+
+#contenedor-detalles {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
     height: 100%;
+}
+
+.img-portada {
     width: 100%;
+    height: 250px;
     object-fit: cover;
-    object-position: center;
     border-radius: 10px;
-}
-.Container-Padre-Trips{
-    display: grid;
-    grid-template-columns: 20% 1fr 25%;
-    gap:0;
-
-    background-color: white;
-    height: calc(100vh - 70px);
-}
-.Container-Columna1,.Container-Columna2,.Container-Columna3 {
-    padding: 2%;
-    border-radius: 0;
-
-    height: 100%;
-}
-.Container-Columna1,.Container-Columna3 {
-    background-color: #f8f9fa;
-    color: white;
-
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
-.Container-Columna1 h5 ,.Container-Columna2 h5 ,.Container-Columna3 h5  {
+.detalle-titulo {
+    font-size: 2.5rem;
     color: #0A2A43;
     font-weight: bold;
-    border-bottom: 1.5px solid gold !important;
-    padding-bottom: 5px;
-    margin-bottom: 5px;
+    margin: 10px 0 5px 0;
+    text-transform: capitalize;
 }
-.tarjeta-viaje{
-    background-color: white;
-    border-left: 5px solid gold !important;
-    border-radius: 8px;
-    width: 100%;
-    padding: 10px;
+
+.detalle-pais {
+    color: #6c757d;
+    font-weight: 600;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    text-transform: uppercase;
 }
-.Button_CrearViaje{
-    text-align: center;
-}
-#contenedor-viajes {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    padding: 10px;
-}
-#contenedor-viajes .card {
-    border:none;
-    min-height: 120px;
-    border-left: 5px solid #FFC107;
-    border-right: 5px solid #FFC107;
-    background-color:white;
-}
-.mensaje-bienvenida{
-    color: Gold; !important;
-    font-weight: bold;
-}
-#contenedor-detalles{
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    height: 100%
-}
-.img-portada{
-    width: 100%;
-    height:250px;
-    object-fit: cover;
-    border-radius: 10px;
-}
-.titulo-detalles{
-    font-size:2.5rem;
-    color : gold !important;
-    font-weight: bold;
-}
-.detalle-pais{
-    color:gray !important;
-    font-weight: bold;
-}
-.fechas-contenedor{
+
+.fechas-contenedor {
     background-color: #0648ae;
-    border-radius: 10px;
+    border-radius: 8px;
     color: #ffffff;
     text-align: center;
+    padding: 10px;
+    font-weight: bold;
 }
-.descripcion-futura{
-    padding: 0.5rem;
+
+.descripcion-futura {
+    padding: 1rem;
     border-radius: 10px;
     background-color: #fffcf5;
-    color:#aaa
+    border: 1px solid #faeacc;
+    color: #555;
 }
-.container-gemini{
-    background-color: white;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-    border-radius: 20px;
+
+.Container-Columna3 {
     display: flex;
     flex-direction: column;
-    height: 450px;
-    overflow: hidden;
-    margin-bottom: 20px;
-    border:none;
+    gap: 20px;
 }
-.header-gemini{
+
+.container-gemini {
+    background-color: white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 300px;
+    max-height: 50vh;
+    overflow: hidden;
+    border: none;
+}
+
+.header-gemini {
     background-color: #0A2A43;
     color: white !important;
     padding: 12px;
     text-align: center;
     font-weight: bold;
-    font-size: 0.95rem;
-}
-#contenedor-chat-gemini{
-    display: flex;
-    flex:1 ;
-    flex-direction: column;
-    background-color: #f5f7fa;
-    gap: 15px;
-    overflow-y: auto;
-    padding: 20px;
+    font-size: 1rem;
 }
 
-.mensaje-respuesta-gemini{
-    border-radius: 20px 20px 20px 5px;
-    padding: 12px 14px;
+#contenedor-chat-gemini {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    background-color: #f8f9fa;
+    gap: 10px;
+    overflow-y: auto;
+    padding: 15px;
+}
+
+.mensaje-respuesta-gemini {
+    border-radius: 15px 15px 15px 2px;
+    padding: 10px 14px;
     align-self: flex-start;
     background-color: white !important;
-    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
-    border: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    border: 1px solid #eee;
     color: #333;
-    max-width: 80%;
-    margin-left: 10px;
+    max-width: 85%;
 }
-.mensaje-respuesta-usuario{
-    padding: 12px 14px ;
+
+.mensaje-respuesta-usuario {
+    padding: 10px 14px;
     align-self: flex-end;
     background-color: #FFC107 !important;
-    color: #0A2A43;;
-    border-radius: 20px 20px 5px 20px;
-    max-width: 80%;
-    margin-right: 10px;
+    color: #0A2A43;
+    border-radius: 15px 15px 2px 15px;
+    max-width: 85%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
-.input-pregunta-box{
-    background-color: #f0f2f5;
+
+.input-pregunta-box {
+    background-color: white;
     padding: 10px;
-    border: none;
-    box-shadow: 0 -5px 15px rgba(0,0,0,0.05);
-    display:flex;
-    gap: 5px;
+    border-top: 1px solid #eee;
+    display: flex;
+    gap: 8px;
     align-items: center;
 }
-.input-pregunta-box input{
-    flex:1;
-    border: 1px solid #ccc;
+
+.input-pregunta-box input {
+    flex: 1;
+    border: 1px solid #ced4da;
     border-radius: 20px;
-    padding: 8px 12px;
+    padding: 8px 15px;
     outline: none;
-    font-size: 0.85rem;
+    font-size: 0.9rem;
 }
-.buttonGemini{
+
+.buttonGemini {
     background: #0A2A43;
     color: white;
     border: none;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    border-radius: 20px;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-weight: 500;
 }
+
+.container-weather {
+    background-color: #ffffff !important;
+    color: #333333 !important;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    display: none;
+    flex-direction: column;
+    margin-top: auto;
+    min-height: 250px;
+    border: 1px solid #e9ecef;
+}
+
+.weather-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #e9ecef;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.weather-temp-big {
+    font-size: 2.5rem;
+    font-weight: bold;
+    line-height: 1;
+    color: #0A2A43;
+}
+
+.weather-city {
+    font-size: 1.1rem;
+    color: #6c757d;
+    text-transform: capitalize;
+}
+
+.carousel-item {
+    text-align: center;
+    min-height: 130px;
+    padding: 0 30px;
+}
+
+.weather-day-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #0d6efd;
+    margin-bottom: 5px;
+}
+
+.weather-icon-large {
+    width: 60px;
+    height: 60px;
+}
+
+.weather-temp-range {
+    font-size: 1rem;
+    margin-top: 5px;
+}
+
+.weather-temp-range .max {
+    font-weight: bold;
+    color: #000;
+    margin-right: 10px;
+}
+
+.weather-temp-range .min {
+    color: #6c757d;
+}
+
+.carousel-control-prev, .carousel-control-next {
+    width: 15%;
+    opacity: 1;
+}
+
+.carousel-control-prev-icon, .carousel-control-next-icon {
+    filter: invert(34%) sepia(98%) saturate(1936%) hue-rotate(201deg) brightness(101%) contrast(104%);
+    width: 2rem;
+    height: 2rem;
+}
+
 @media screen and (max-width: 900px) {
-    .Container-Padre-Trips{
+    .Container-Padre-Trips {
         grid-template-columns: 1fr;
         grid-template-rows: auto auto auto;
         height: auto;
-        width: 100%;
     }
-    .Container-Columna1,.Container-Columna2,.Container-Columna3 {
+
+    .Container-Columna1, .Container-Columna2, .Container-Columna3 {
         height: auto;
-        min-height:300px;
-        gap: 25px;
-        padding: 10px;
+        min-height: auto;
+        padding: 20px;
     }
-    
+
+    .container-gemini {
+        max-height: 400px;
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-

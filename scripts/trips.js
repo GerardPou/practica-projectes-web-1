@@ -8,29 +8,45 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalActivitat = new bootstrap.Modal(modalActivitatEl);
     const btnGuardarActivitat = document.getElementById('btn-guardar-activitat');
 
+    const API_KEY = 'e37da9bf540393b942e08990dc919de9';
+
     let misViajes = [];
     let indiceViajeSeleccionado = null;
 
     const elementoModal = document.getElementById('miModalBootstrap');
     const miModal = new bootstrap.Modal(elementoModal);
 
-    botonAbrir.addEventListener('click', () => {
-        miModal.show();
-    });
-    botonCerrar.addEventListener('click', () => {
-        miModal.hide();
-    });
-    botonX.addEventListener('click', () => {
-        miModal.hide();
-    });
-    botonGuardar.addEventListener('click', () => {
-        guardarViajeForm(miModal);
-    });
+    botonAbrir.addEventListener('click', () => miModal.show());
+    botonCerrar.addEventListener('click', () => miModal.hide());
+    botonX.addEventListener('click', () => miModal.hide());
+    botonGuardar.addEventListener('click', () => guardarViajeForm(miModal));
 
     const ViajesGuardados = localStorage.getItem('misViajes');
     if (ViajesGuardados != null) {
         misViajes = JSON.parse(ViajesGuardados);
         printarViajes();
+    }
+
+    function ferPeticioAjax(url) {
+        return new Promise((resolve, reject) => {
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', url, true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        try {
+                            const dades = JSON.parse(xhr.responseText);
+                            resolve(dades);
+                        } catch (e) {
+                            reject("Error processant el JSON");
+                        }
+                    } else {
+                        reject(`Error HTTP: ${xhr.status}`);
+                    }
+                }
+            };
+            xhr.send();
+        });
     }
 
     function guardarViajeForm(modalBootstrap) {
@@ -44,14 +60,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const fechaIda = InputfechaIda.value;
         const fechaFin = InputfechaFin.value;
 
-        if (pais === "" || ciudad === "") {
-            alert("Falta rellenar el pais o la ciudad");
-            return;
-        }
-        if (fechaFin === "" || fechaIda === "") {
-            alert("Falta rellenar las fechas");
-            return;
-        }
+        if (pais === "" || ciudad === "") { alert("Falta rellenar el pais o la ciudad"); return; }
+        if (fechaFin === "" || fechaIda === "") { alert("Falta rellenar las fechas"); return; }
 
         const idUnico = Math.floor(Math.random() * 1000);
         const urlFoto = `https://loremflickr.com/400/400/${ciudad},city?lock=${idUnico}`;
@@ -105,39 +115,129 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function mostrarDetalle(i) {
+    async function mostrarDetalle(i) {
         indiceViajeSeleccionado = i;
         let viaje = misViajes[i];
 
-        if (!viaje.actividades) {
-            viaje.actividades = [];
-        }
+        if (!viaje.actividades) { viaje.actividades = []; }
 
         let fin = viaje.fechaFin.split('-').reverse().join('/');
         let inicio = viaje.fechaInicio.split('-').reverse().join('/');
 
-        const bienvenida = document.getElementById('mensaje-bienvenida');
-        const contenedorDetalle = document.getElementById('contenedor-detalles');
-        const cajaChatPrincipal = document.querySelector('.container-gemini');
+        document.getElementById('mensaje-bienvenida').style.display = "none";
+        document.getElementById('contenedor-detalles').style.display = "block";
+        document.querySelector('.container-gemini').style.display = "flex";
 
-        const img = document.getElementById('detalle-img');
-        const titulo = document.getElementById('detalle-titulo');
-        const pais = document.getElementById('detalle-pais');
-        const fechas = document.getElementById('detalle-fechas');
-
-        bienvenida.style.display = "none";
-        contenedorDetalle.style.display = "block";
-        cajaChatPrincipal.style.display = "flex";
+        const containerWeather = document.querySelector('.container-weather');
+        containerWeather.style.display = "flex";
 
         document.getElementById('contenedor-chat-gemini').innerHTML = "";
         enviarMensaje("Dime cosas que hacer en la ciudad de " + viaje.ciudad);
 
-        titulo.innerText = viaje.ciudad;
-        pais.innerText = viaje.pais;
-        fechas.innerText = `Del ${inicio} al ${fin}`;
-        img.src = viaje.urlFoto;
+        document.getElementById('detalle-titulo').innerText = viaje.ciudad;
+        document.getElementById('detalle-pais').innerText = viaje.pais;
+        document.getElementById('detalle-fechas').innerText = `Del ${inicio} al ${fin}`;
+        document.getElementById('detalle-img').src = viaje.urlFoto;
 
         printarTaulaActivitats();
+
+        containerWeather.innerHTML = '<div class="text-center p-3" style="color:#6c757d">Cargando tiempo...</div>';
+        await carregarPrevisioViatge(viaje);
+    }
+
+    async function carregarPrevisioViatge(viaje) {
+        const containerWeather = document.querySelector('.container-weather');
+
+        const urlGeo = `https://api.openweathermap.org/geo/1.0/direct?q=${viaje.ciudad}&limit=1&appid=${API_KEY}`;
+        try {
+            const geoData = await ferPeticioAjax(urlGeo);
+            if (!geoData || geoData.length === 0) {
+                containerWeather.innerHTML = '<p class="text-center text-muted">Ciudad no encontrada.</p>';
+                return;
+            }
+            const { lat, lon } = geoData[0];
+
+            const urlForecast = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric&lang=es`;
+            const forecastData = await ferPeticioAjax(urlForecast);
+
+            const dataInici = new Date(viaje.fechaInicio);
+            const dataFi = new Date(viaje.fechaFin);
+            const diffTime = Math.abs(dataFi - dataInici);
+            let diesViatge = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+
+            if (diesViatge > 5) diesViatge = 5;
+
+            const llistaDiaria = [];
+            for(let j=0; j < forecastData.list.length; j += 8) {
+                llistaDiaria.push(forecastData.list[j]);
+            }
+
+            let carouselItemsHTML = '';
+
+            for (let k = 0; k < diesViatge; k++) {
+                if (!llistaDiaria[k]) break;
+
+                const dada = llistaDiaria[k];
+                const tempMax = Math.round(dada.main.temp_max);
+                const tempMin = Math.round(dada.main.temp_min);
+                const icon = dada.weather[0].icon;
+                let desc = dada.weather[0].description;
+                desc = desc.charAt(0).toUpperCase() + desc.slice(1);
+
+                const diaActualViatge = new Date(dataInici);
+                diaActualViatge.setDate(dataInici.getDate() + k);
+                const nomDia = diaActualViatge.toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'numeric' });
+
+                const activeClass = (k === 0) ? 'active' : '';
+
+                carouselItemsHTML += `
+                    <div class="carousel-item ${activeClass}">
+                        <div class="weather-day-title">${nomDia}</div>
+                        <img src="https://openweathermap.org/img/wn/${icon}@2x.png" class="weather-icon-large" alt="${desc}">
+                        <div class="weather-temp-range">
+                            <span class="max">${tempMax}°C</span> 
+                            <span class="min">${tempMin}°C</span>
+                        </div>
+                        <div style="font-size: 0.85rem; color: #6c757d; margin-top:5px;">${desc}</div>
+                    </div>
+                `;
+            }
+
+            const tempActual = Math.round(llistaDiaria[0].main.temp);
+            const descActual = llistaDiaria[0].weather[0].description;
+
+            containerWeather.innerHTML = `
+                <div class="weather-header">
+                    <div>
+                        <div class="weather-temp-big">${tempActual}°</div>
+                        <div class="weather-city">${viaje.ciudad}</div>
+                    </div>
+                    <div style="text-align:right">
+                        <small style="color:#6c757d">Ahora</small><br>
+                        <span style="font-size:0.9rem; color:#333">${descActual}</span>
+                    </div>
+                </div>
+
+                <div id="weatherCarouselIndicators" class="carousel slide" data-bs-interval="false">
+                    <div class="carousel-inner">
+                        ${carouselItemsHTML}
+                    </div>
+                    
+                    <button class="carousel-control-prev" type="button" data-bs-target="#weatherCarouselIndicators" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Ant.</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#weatherCarouselIndicators" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Sig.</span>
+                    </button>
+                </div>
+            `;
+
+        } catch (error) {
+            console.error(error);
+            containerWeather.innerHTML = '<p class="text-danger text-center">Error API Tiempo</p>';
+        }
     }
 
     btnGuardarActivitat.addEventListener('click', () => {
