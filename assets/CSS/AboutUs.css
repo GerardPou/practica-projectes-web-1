@@ -230,7 +230,7 @@
 }
 
 .form-group-custom {
-    flex: 1 1 220px;
+    /*flex: 1 1 220px;*/
     display: flex;
     flex-direction: column;
 }
