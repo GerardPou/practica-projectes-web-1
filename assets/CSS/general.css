@@ -1,11 +1,17 @@
 * {
     box-sizing: border-box;
 }
+h1, h2, h3, h4, h5, .card-title {
+    text-wrap: balance;
+}
+p,.card-text{
+    text-wrap: pretty;
+}
 
 html, body {
     font-family: sans-serif;
     margin: 0;
-    padding-b: 0;
+    padding-bottom: 0;
     background-color: #CCCCCC;
  }
 header {

@@ -5,10 +5,13 @@
     justify-content: space-between;
     gap: 40px;
     padding: 60px 5%;
+    text-wrap: balance;
 }
 
 .about-text {
     flex: 1;
+    text-wrap: balance;
+
 }
 
 .about-logo-container {
@@ -26,13 +29,14 @@
     align-items: center;
     gap: 40px;
     padding: 60px 5%;
+    text-wrap: balance;
+
 }
 
 .mission-text,
 .mission-image {
     flex: 1;
 }
-
 
 
 .team-grid {

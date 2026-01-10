@@ -10,16 +10,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnGuardarActivitat = document.getElementById('btn-guardar-activitat');
     const titolModalActivitat = document.getElementById('titolModalActivitat');
 
+
     const API_KEY = 'e37da9bf540393b942e08990dc919de9';
 
     let misViajes = [];
-    let indiceViajeSeleccionado = null;
+    let idViajeSeleccionado=null
     let indiceActivitatEdicio = -1;
 
     const elementoModal = document.getElementById('miModalBootstrap');
     const miModal = new bootstrap.Modal(elementoModal);
 
-    botonAbrir.addEventListener('click', () => miModal.show());
+    botonAbrir.addEventListener('click', () =>{
+        idViajeSeleccionado=null;
+        document.getElementById('formCrear').reset();
+        const tituloModal=document.getElementById('exampleModalLabel');        miModal.show()
+    });
     botonCerrar.addEventListener('click', () => miModal.hide());
     botonX.addEventListener('click', () => miModal.hide());
     botonGuardar.addEventListener('click', () => guardarViajeForm(miModal));
@@ -57,28 +62,60 @@ document.addEventListener('DOMContentLoaded', () => {
         const Inputciudad = document.getElementById('LabelCiudad');
         const InputfechaIda = document.getElementById('LabelFechaIda');
         const InputfechaFin = document.getElementById('LabelFechaVuelta');
+        const InputCiudadOrigen= document.getElementById('LabelCiudadOrigen');
 
         const pais = Inputpais.value;
         const ciudad = Inputciudad.value;
         const fechaIda = InputfechaIda.value;
         const fechaFin = InputfechaFin.value;
+        const CiudadOrigen= InputCiudadOrigen.value;
 
-        if (pais === "" || ciudad === "") { alert("Falta rellenar el pais o la ciudad"); return; }
-        if (fechaFin === "" || fechaIda === "") { alert("Falta rellenar las fechas"); return; }
-
-        const idUnico = Math.floor(Math.random() * 1000);
-        const urlFoto = `https://loremflickr.com/400/400/${ciudad},city?lock=${idUnico}`;
-
-        const nuevoViaje = {
-            fechaInicio: fechaIda,
-            fechaFin: fechaFin,
-            ciudad: ciudad,
-            pais: pais,
-            urlFoto: urlFoto,
-            actividades: []
+        if (pais === "" || ciudad === "" || CiudadOrigen === "") {
+            alert("Falta rellenar el pais o la ciudad");
+            return;
+        }
+        if (fechaFin === "" || fechaIda === "") {
+            alert("Falta rellenar las fechas");
+            return;
         }
 
-        misViajes.push(nuevoViaje);
+
+
+        if (idViajeSeleccionado===null) {
+            const idUnico = Math.floor(Math.random() * 1000);
+            const urlFoto = `https://loremflickr.com/400/400/${ciudad},city?lock=${idUnico}`;
+            const nuevoViaje = {
+                idUnico: idUnico,
+                fechaInicio: fechaIda,
+                fechaFin: fechaFin,
+                ciudadOrigen: CiudadOrigen,
+                ciudad: ciudad,
+                pais: pais,
+                urlFoto: urlFoto,
+                actividades: []
+            }
+            misViajes.push(nuevoViaje);
+        }else {
+            let viaje=null;
+            for (let i=0; i<misViajes.length; i++) {
+                if (misViajes[i].idUnico === idViajeSeleccionado) {
+                    viaje=misViajes[i];
+                    break;
+                }
+            }
+            if (viaje===null) {
+                return;
+            }
+            if (viaje!=null) {
+                viaje.pais = pais;
+                viaje.ciudadOrigen=origen
+                viaje.ciudad = ciudad;
+                viaje.fechaInicio = fechaIda;
+                viaje.fechaFin = fechaFin;
+                mostrarDetalle(idViajeSeleccionado);
+            }
+
+        }
         localStorage.setItem('misViajes', JSON.stringify(misViajes));
         printarViajes();
         document.getElementById('formCrear').reset();
@@ -92,6 +129,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         for (let i = 0; i < num_viajes; i++) {
             let viaje = misViajes[i];
+            if (!viaje.idUnico) {
+                viaje.idUnico = Date.now() +i;
+            }
             let inicio = viaje.fechaInicio.split('-').reverse().join('/');
             let fin = viaje.fechaFin.split('-').reverse().join('/');
 
@@ -99,7 +139,7 @@ document.addEventListener('DOMContentLoaded', () => {
             nuevaTarjeta.className = "card mb-3";
             nuevaTarjeta.style.cursor = "pointer";
 
-            nuevaTarjeta.addEventListener('click', () => mostrarDetalle(i));
+            nuevaTarjeta.addEventListener('click', () => mostrarDetalle(viaje.idUnico));
 
             nuevaTarjeta.innerHTML += `
               <div class="row g-0">
@@ -110,17 +150,77 @@ document.addEventListener('DOMContentLoaded', () => {
                   <div class="card-body">
                     <h5 class="card-title">${viaje.ciudad}</h5>
                     <p class="card-text">${viaje.pais}</p>
-                    <p class="card-text"><small class="text-body-secondary">${inicio} - ${fin}</small></p>
+                    <p class="card-text">
+                    <small class="text-muted"> Origen: ${viaje.ciudadOrigen}</small>
+                    </p>
+                    <div class="d-flex justify-content-end gap-2 mt-2">
+                        <button class="btn btn-sm btn-outline-secondary btn-editar" style="z-index: 2;">✏️</button>
+                        <button class="btn btn-sm btn-outline-danger btn-eliminar" style="z-index: 2;">🗑️</button>
+                    </div>
                   </div>
                 </div>
               </div>`;
+            const bottonEditar=nuevaTarjeta.querySelector('.btn-editar');
+            const bottonEliminar=nuevaTarjeta.querySelector('.btn-eliminar');
+
+            bottonEditar.onclick=(e) =>{
+                e.stopPropagation();
+                idViajeSeleccionado=viaje.idUnico;
+                document.getElementById('LabelPais').value = viaje.pais;
+                document.getElementById('LabelCiudad').value = viaje.ciudad;
+                document.getElementById('LabelFechaIda').value = viaje.fechaInicio;
+                document.getElementById('LabelFechaVuelta').value = viaje.fechaFin;
+                const tituloModal = document.getElementById('exampleModalLabel');            tituloModal.innerText = "Editar viaje";
+                miModal.show();
+            };
+            bottonEliminar.onclick=(e)=>{
+                e.stopPropagation();
+                EliminarViajes(viaje.idUnico);
+            }
             contenedorViajes.appendChild(nuevaTarjeta);
         }
     }
+    function EliminarViajes(idViaje) {
+        let indice=-1;
+        let viaje=null;
+        idViajeSeleccionado=idViaje;
+        for (let i=0; i<misViajes.length; i++) {
 
-    async function mostrarDetalle(i) {
-        indiceViajeSeleccionado = i;
-        let viaje = misViajes[i];
+            if (misViajes[i].idUnico === idViaje) {
+                indice=i;
+                viaje=misViajes[i];
+                break;
+            }
+
+        }
+        if (viaje===null) {
+            return;
+        }
+        misViajes.splice(indice,1)
+        localStorage.setItem('misViajes', JSON.stringify(misViajes));
+        document.getElementById('contenedor-detalles').style.display = "none";
+        document.getElementById('mensaje-bienvenida').style.display = "block";
+        document.querySelector('.container-gemini').style.display = "none";
+        document.querySelector('.container-weather').style.display = "none";
+
+        printarViajes();
+
+    }
+
+    async function mostrarDetalle(idViaje) {
+        let viaje=null;
+        idViajeSeleccionado=idViaje;
+        for (let i=0; i<misViajes.length; i++) {
+            if (misViajes[i].idUnico === idViaje) {
+                viaje=misViajes[i];
+                break;
+            }
+        }
+        if (viaje===null) {
+            return;
+        }
+        
+
 
         if (!viaje.actividades) { viaje.actividades = []; }
 
@@ -251,12 +351,22 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     btnGuardarActivitat.addEventListener('click', () => {
-        if (indiceViajeSeleccionado === null) return;
-
+        if (idViajeSeleccionado=== null) return;
+        let viaje=null;
+        for (let i =0 ; i < misViajes.length; i++) {
+            if (misViajes[i].idUnico===idViajeSeleccionado) {
+                viaje=misViajes[i];
+                break;
+            }
+        }
+        if (viaje == null){
+            return;
+        }
         const inputData = document.getElementById('inputDataActivitat').value;
         const inputHora = document.getElementById('inputHoraActivitat').value;
         const inputNom = document.getElementById('inputNomActivitat').value;
         const inputPreu = document.getElementById('inputPreuActivitat').value;
+        const inputDescripcion = document.getElementById('inputDescripcioActivitat').value;
 
         if (inputData === "" || inputHora === "" || inputNom === "") {
             alert("Falta rellenar campos obligatorios");
@@ -267,13 +377,14 @@ document.addEventListener('DOMContentLoaded', () => {
             data: inputData,
             hora: inputHora,
             nom: inputNom,
-            preu: inputPreu
+            preu: inputPreu,
+            descripcion: inputDescripcion
         };
 
         if (indiceActivitatEdicio === -1) {
-            misViajes[indiceViajeSeleccionado].actividades.push(novaActivitat);
+            viaje.actividades.push(novaActivitat);
         } else {
-            misViajes[indiceViajeSeleccionado].actividades[indiceActivitatEdicio] = novaActivitat;
+            viaje.actividades[indiceActivitatEdicio] = novaActivitat;
         }
 
         localStorage.setItem('misViajes', JSON.stringify(misViajes));
@@ -284,20 +395,40 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function prepararEdicio(index) {
         indiceActivitatEdicio = index;
-        const activitat = misViajes[indiceViajeSeleccionado].actividades[index];
+        let viaje=null;
+        for (let i =0 ; i < misViajes.length; i++) {
+            if (misViajes[i].idUnico===idViajeSeleccionado) {
+                viaje=misViajes[i];
+                break;
+            }
+        }
+        if (viaje == null){
+            return;
+        }
+        const activitat =viaje.actividades[index];
 
         document.getElementById('inputDataActivitat').value = activitat.data;
         document.getElementById('inputHoraActivitat').value = activitat.hora;
         document.getElementById('inputNomActivitat').value = activitat.nom;
         document.getElementById('inputPreuActivitat').value = activitat.preu;
 
+        document.getElementById('inputDescripcioActivitat').value = activitat.descripcion || "";
         titolModalActivitat.textContent = "Editar Actividad";
         modalActivitat.show();
     }
 
     function printarTaulaActivitats() {
         const tbody = document.getElementById('body-taula-activitats');
-        const viajeActual = misViajes[indiceViajeSeleccionado];
+        let viajeActual=null;
+        for (let i=0; i<misViajes.length; i++) {
+            if (misViajes[i].idUnico === idViajeSeleccionado) {
+                viajeActual=misViajes[i];
+                break;
+            }
+        }
+        if (viajeActual===null) {
+            return;
+        }
 
         tbody.innerHTML = "";
 
@@ -340,6 +471,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     <td>${act.hora}</td>
                     <td>${act.nom}</td>
                     <td>${act.preu ? act.preu + '€' : '-'}</td>
+                    <td>${act.descripcion || '-'}</td>
+                    
                 `;
                 fila.appendChild(tdAccions);
 
@@ -349,7 +482,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function eliminarActivitat(index) {
-        misViajes[indiceViajeSeleccionado].actividades.splice(index, 1);
+        let viaje=null;
+        for (let i =0 ; i < misViajes.length; i++) {
+            if (misViajes[i].idUnico===idViajeSeleccionado) {
+                viaje=misViajes[i];
+                break;
+            }
+        }
+        if (viaje == null){
+            return;
+        }
+        viaje.actividades.splice(index, 1);
         localStorage.setItem('misViajes', JSON.stringify(misViajes));
         printarTaulaActivitats();
     }

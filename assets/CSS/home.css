@@ -7,6 +7,7 @@
     margin-top: 50px;
 
 }
+
 #Container-Logos-Colaboradores{
     display: flex;
     flex-direction: row;
@@ -45,7 +46,7 @@
     width: 100%;
     background: #0A2A43;
 }
-.Container-Cards-Informacion{
+.Container-Cards-Informacion {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -53,6 +54,7 @@
     width: 100%;
     background: #0A2A43;
     gap: 4px;
+    text-wrap: balance;
 }
 .FotoContenido1{
     display: flex;
@@ -72,6 +74,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    text-wrap: balance;
 }
 
 .contenedorGif {
@@ -86,7 +89,7 @@
 }
 .carousel-item img {
     height: auto;
-    width: 70%;
+    width: 100%;
 
 }
 .container-carrousel {
@@ -114,6 +117,7 @@
     gap: 40px;
     padding: 60px 20px;
     background: #ffffff;
+    text-wrap: balance;
 }
 .card{
     border-radius: 20px !important;
@@ -127,6 +131,21 @@
 .Container-Cards-Informacion .card-body {
     padding: 25px;
     text-align: center;
+}
+@media (max-width: 800px) {
+    .carousel-caption h5 {
+        font-size: 1.25rem;
+        margin-bottom:5px;
+    }
+    .carousel-caption p {
+        font-size: 0.9rem;
+        margin-bottom:10px;
+    }
+    .carousel-caption .btn {
+        font-size: 0.8rem;
+        padding: 5px 10px;
+    }
+
 }
 
 

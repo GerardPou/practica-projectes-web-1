@@ -10,6 +10,7 @@
     padding: 2%;
     border-radius: 0;
     height: 100%;
+    overflow-y: auto;
 }
 
 .Container-Columna1, .Container-Columna3 {
@@ -158,6 +159,7 @@
     max-height: 50vh;
     overflow: hidden;
     border: none;
+    overflow-y: auto;
 }
 
 .header-gemini {
